@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: zuul
+  cloud:
+    config:
+      override-none: true
+server:
+  port: 3001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://176.61.3.216:2001/eureka,http://176.61.3.216:2002/eureka
+zuul:
+  retryable: true
+  routes:
+    user-route:
+      serviceId: user-service
+      path: /user-service/**
+    item-route:
+      serviceId: item-service
+      path: /item-service/**
+    order-route:
+      serviceId: order-service
+      path: /order-service/**
+  sensitive-headers:
+#  routes:
+#    item-service: /item/**
+#    user-service: /user/**
+#    order-service: /order/**
+ribbon:
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 1
+  ConnectTimeout: 1000
+  ReadTimeout: 1000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "hystrix.stream"
