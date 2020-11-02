@@ -16,7 +16,6 @@ eureka:
     service-url:
       defaultZone: http://176.61.3.216:2001/eureka,http://176.61.3.216:2002/eureka
 zuul:
-  retryable: true
   routes:
     user-route:
       serviceId: user-service
@@ -32,11 +31,6 @@ zuul:
 #    item-service: /item/**
 #    user-service: /user/**
 #    order-service: /order/**
-ribbon:
-  MaxAutoRetries: 1
-  MaxAutoRetriesNextServer: 1
-  ConnectTimeout: 1000
-  ReadTimeout: 1000
 hystrix:
   command:
     default:
